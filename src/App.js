@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import Countries from "./components/Countries";
+import Loader from "./components/Loader";
+import Serach from "./components/Serach";
 
 const url = "https://restcountries.com/v3.1/all";
 
@@ -7,6 +10,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [filterCountries, setFilterCountries] = useState(countries);
 
   const fetchData = async (url) => {
     setIsLoading(true);
@@ -14,26 +18,46 @@ function App() {
       const response = await fetch(url);
       const data = await response.json();
       setCountries(data);
+      setFilterCountries(data);
       setIsLoading(false);
       setError(null);
-      console.log(countries);
     } catch (error) {
       setIsLoading(false);
       setError(error);
     }
   };
 
+
   useEffect(() => {
     fetchData(url);
   }, []);
 
+  const handleRemove = (name) => {
+    const filter = filterCountries.filter((country) => country.name.common !== name);
+    setFilterCountries(filter);
+  }
+  const handleSearch = (searchItem) => {
+    const item = searchItem.toLowerCase();
+    const searchFilter = countries.filter((counrty) => {
+      const counrtyName = counrty.name.common.toLowerCase();
+      return counrtyName.startsWith(item);
+    });
+    setFilterCountries(searchFilter);
+  };
+
   return (
-    <div className="App">
+    <>
       <h1>Country App</h1>
-      {countries.map((country) => (
-        <p>{country.name.common}</p>
-      ))}
-    </div>
+      <Serach onSearch={handleSearch} />
+      {isLoading && <Loader />}
+      {error && <h3>{error.massage}</h3>}
+      {countries && (
+        <Countries
+          countriesInfo={filterCountries}
+          removeCountry={handleRemove}
+        />
+      )}
+    </>
   );
 }
 export default App;
