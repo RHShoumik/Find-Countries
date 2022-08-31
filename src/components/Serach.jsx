@@ -11,7 +11,7 @@ const Serach = (props) => {
     }, [searchText]);
   return (
       <div>
-          <input type="text" value={searchText} placeholder='Search tour Counrty' onChange={handleChange}/>
+          <input type="text" value={searchText} placeholder='Search your Counrty' onChange={handleChange}/>
     </div>
   )
 }
