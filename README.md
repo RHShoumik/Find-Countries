@@ -1,8 +1,6 @@
 # Project Name : Search My Country
 
 [Project Live Demo](https://6310d9d573ca0616b5010aea--jade-hamster-962bba.netlify.app/)
-useState ->> to store data
-useEffect ->> to fetch data
 
 # Project Feaure Plan
 
