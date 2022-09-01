@@ -50,7 +50,7 @@ function App() {
 
   return (
     <>
-      <h1>Search MyCountry</h1>
+      <h1>Search My Country</h1>
       <Serach onSearch={handleSearch} />
       {isLoading && <Loader />}
       {error && <h3>{error.massage}</h3>}
