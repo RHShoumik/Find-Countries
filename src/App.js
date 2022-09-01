@@ -38,7 +38,10 @@ function App() {
   }
   const handleSearch = (searchItem) => {
     const item = searchItem.toLowerCase();
-    const searchFilter = countries.filter((counrty) => {
+    if (item === "") {
+      return setFilterCountries(countries);
+    }
+    const searchFilter = filterCountries.filter((counrty) => {
       const counrtyName = counrty.name.common.toLowerCase();
       return counrtyName.startsWith(item);
     });
